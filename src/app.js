@@ -1,16 +1,20 @@
+// point the direction of the public main folder
 const path = require('path')
-const express = require('express')
 
+// config express
+const express = require('express')
 const app = express()
+const hbs = require('hbs');
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
-const viewsPath = path.join(__dirname, '../templates')
+const viewsPath = path.join(__dirname, '../templates/views');
+const partialsPath = path.join(__dirname, '../templates/partials');
 
 // Setup handlebars engine and views location
 app.set('view engine', 'hbs')
 app.set('views', viewsPath)
-
+hbs.registerPartial(partialsPath);
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
@@ -41,4 +45,6 @@ app.get('/weather', (req, res) => {
     })
 })
 
-app.listen(4300)
+app.listen(3000, () => {
+    console.log('Server is up on port 3000.')
+})
